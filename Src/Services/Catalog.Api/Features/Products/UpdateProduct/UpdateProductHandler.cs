@@ -1,10 +1,11 @@
+using System.Data;
 using BuildingBlocks.CQRS;
 using Catalog.Api.Exceptions;
 using Catalog.Api.Models;
 
 namespace Catalog.Api.Features.Products.UpdateProduct;
 
-internal record UpdateProductCommand(
+public record UpdateProductCommand(
     Guid Id,
     string Name,
     List<string> Category,
@@ -12,17 +13,28 @@ internal record UpdateProductCommand(
     string ImageFile,
     decimal Price) : ICommand<UpdateProductResponse>;
 
-internal record UpdateProductResponse(bool Ok);
+public record UpdateProductResponse(bool Ok);
 
-internal class UpdateProductHandler(IDocumentSession session, ILogger<UpdateProductHandler> logger) 
+public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
+{
+    public UpdateProductCommandValidator()
+    {
+        RuleFor(x => x.Name)
+            .NotEmpty().WithMessage("Name is required")
+            .MaximumLength(255).WithMessage("Name length should be less than 255 character");
+        RuleFor(x => x.Category).NotEmpty().WithMessage("product should be in a category at least!");
+        RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price should be more than 0!");
+    }
+}
+
+internal class UpdateProductHandler(IDocumentSession session) 
     : ICommandHandler<UpdateProductCommand, UpdateProductResponse>
 {
     public async Task<UpdateProductResponse> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
-        logger.LogInformation("new request for UpdateProductHandler: {@command}", command);
         var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
         if (product is null)
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(command.Id);
         product.Name = command.Name;
         product.Category = command.Category;
         product.Description = command.Description;

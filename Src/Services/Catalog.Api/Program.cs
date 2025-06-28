@@ -19,6 +19,7 @@ builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddMarten(config =>
 {
     config.Connection(builder.Configuration.GetConnectionString("DbConnection")!);
+    config.CreateDatabasesForTenants(c => { });
 }).UseLightweightSessions();
 if (builder.Environment.IsDevelopment())
 {

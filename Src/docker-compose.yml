@@ -4,6 +4,20 @@
     build:
       context: .
       dockerfile: Services/Catalog.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_HTTP_PORTS=8080
+        - ASPNETCORE_HTTPS_PORTS=8081
+        - ASPNETCORE_Kestrel__Certificates__Default__Password=Ali1376!!!
+        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/catalog.pfx
+      - ConnectionStrings__DbConnection=Server=catalog.db;Port=5432;Database=CatalogDB;User Id=postgres;Password=postgres;Include Error Detail=true
+    depends_on:
+      - catalog.db
+    ports:
+      - "6000:8080"
+      - "6060:8081"
+    volumes:
+      - /docker/eshop/catalog/ssl:/https:ro
   
   catalog.db:
     image: postgres:13-bullseye

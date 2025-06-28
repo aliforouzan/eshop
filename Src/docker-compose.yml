@@ -31,3 +31,9 @@
       - 5432:5432
     volumes:
       - /docker/eshop/catalog/data:/var/lib/postgresql/data
+ 
+  basket.api:
+    image: basket.api
+    build:
+      context: .
+      dockerfile: Services/Basket.Api/Dockerfile

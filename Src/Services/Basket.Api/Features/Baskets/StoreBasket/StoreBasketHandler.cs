@@ -1,6 +1,24 @@
+using Basket.Api.Models;
+using BuildingBlocks.CQRS;
+
 namespace Basket.Api.Features.Baskets.StoreBasket;
 
-public class StoreBasketHandler
+public record StoreBasketCommand(ShoppingCart Cart) : ICommand<StoreBasketResult>;
+
+public record StoreBasketResult(string Username);
+
+public class StoreBasketValidator : AbstractValidator<StoreBasketCommand>
 {
-    
+    public StoreBasketValidator()
+    {
+        RuleFor(x => x.Cart).NotNull().WithMessage("Cart required");
+        RuleFor(x => x.Cart.UserName).NotNull().WithMessage("Username is required");
+    }
+}
+public class StoreBasketCommandHandler : ICommandHandler<StoreBasketCommand, StoreBasketResult>
+{
+    public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

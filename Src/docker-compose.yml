@@ -37,3 +37,16 @@
     build:
       context: .
       dockerfile: Services/Basket.Api/Dockerfile
+      
+  basket.db:
+    image: postgres:13-bullseye
+    container_name: basket.db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=BasketDB
+    restart: always
+    ports:
+      - 5433:5432
+    volumes:
+      - /docker/eshop/basket/data:/var/lib/postgresql/data

@@ -1,5 +1,3 @@
-using Basket.Api.Models;
-
 namespace Basket.Api.Features.Baskets.GetBasket;
 
 public record GetBasketResponse(ShoppingCart Cart);

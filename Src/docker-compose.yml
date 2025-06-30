@@ -50,3 +50,11 @@
       - 5433:5432
     volumes:
       - /docker/eshop/basket/data:/var/lib/postgresql/data
+        
+  basket.redis:
+    image: redis:latest
+    container_name: basket.redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - /docker/eshop/basket/redis:/data

@@ -74,3 +74,9 @@
       - "6379:6379"
     volumes:
       - /docker/eshop/basket/redis:/data
+
+  discount.grpc:
+    image: discount.grpc
+    build:
+      context: .
+      dockerfile: Services/Discount.Grpc/Dockerfile

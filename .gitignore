@@ -54,3 +54,6 @@ TestResult.xml
 nunit-*.xml
 /.idea/
 /Src/.idea/
+/Src/Services/Discount.Grpc/discountDB
+/Src/Services/Discount.Grpc/discountDB-shm
+/Src/Services/Discount.Grpc/discountDB-wal

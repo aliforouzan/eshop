@@ -1,15 +1,15 @@
 ﻿services:
   catalog.api:
-    image: catalog.api
+    image: catalog.api:latest
     build:
       context: .
       dockerfile: Services/Catalog.Api/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-        - ASPNETCORE_HTTP_PORTS=8080
-        - ASPNETCORE_HTTPS_PORTS=8081
-        - ASPNETCORE_Kestrel__Certificates__Default__Password=Ali1376!!!
-        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/catalog.pfx
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Ali1376
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/catalog.pfx
       - ConnectionStrings__DbConnection=Server=catalog.db;Port=5432;Database=CatalogDB;User Id=postgres;Password=postgres;Include Error Detail=true
     depends_on:
       - catalog.db
@@ -33,10 +33,26 @@
       - /docker/eshop/catalog/data:/var/lib/postgresql/data
  
   basket.api:
-    image: basket.api
+    image: basket.api:latest
     build:
       context: .
       dockerfile: Services/Basket.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Ali1376
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/basket.pfx
+      - ConnectionStrings__DbConnection=Server=basket.db;Port=5432;Database=BasketDB;User Id=postgres;Password=postgres;Include Error Detail=true
+      - ConnectionStrings__RedisConnection=basket.redis:6379
+    depends_on:
+      - basket.db
+      - basket.redis
+    ports:
+      - "6001:8080"
+      - "6061:8081"
+    volumes:
+      - /docker/eshop/basket/ssl:/https:ro
       
   basket.db:
     image: postgres:13-bullseye

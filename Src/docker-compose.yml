@@ -45,9 +45,11 @@
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/basket.pfx
       - ConnectionStrings__DbConnection=Server=basket.db;Port=5432;Database=BasketDB;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__RedisConnection=basket.redis:6379
+      - GrpcSettings__DiscountUrl=http://discount.grpc:8080
     depends_on:
       - basket.db
       - basket.redis
+      - discount.grpc
     ports:
       - "6001:8080"
       - "6061:8081"

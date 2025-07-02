@@ -14,12 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="Protos\discount.proto" />
       <Protobuf Include="Protos\discount.proto" GrpcServices="Server" />
     </ItemGroup>
@@ -32,6 +26,12 @@
       <Reference Include="Mapster">
         <HintPath>..\..\..\..\..\..\.nuget\packages\mapster\7.4.0\lib\net7.0\Mapster.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

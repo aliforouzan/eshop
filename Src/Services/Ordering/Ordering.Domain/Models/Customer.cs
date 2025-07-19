@@ -7,9 +7,9 @@ public class Customer : Entity<CustomerId>
     public string Name { get; private set; } = default!;
     public string Email { get; private set; } = default!;
 
-    public Customer(CustomerId customerId,string name, string email)
+    public Customer(CustomerId id,string name, string email)
     {
-        Id = customerId;
+        Id = id;
         Name = name;
         Email = email;
     }

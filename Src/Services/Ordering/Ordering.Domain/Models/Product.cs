@@ -5,9 +5,9 @@ public class Product : Entity<ProductId>
     public string Name { get; private set; } = default!;
     public decimal Price { get; private set; } = default!;
 
-    private Product(ProductId productId, string name, decimal price)
+    private Product(ProductId id, string name, decimal price)
     {
-        Id = productId;
+        Id = id;
         Name = name;
         Price = price;
     }

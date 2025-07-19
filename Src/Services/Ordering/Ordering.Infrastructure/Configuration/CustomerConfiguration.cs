@@ -1,7 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Ordering.Domain.Models;
-using Ordering.Domain.ValueObjects.StronglyTypes;
 
 namespace Ordering.Infrastructure.Configuration;
 
@@ -11,11 +8,11 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
         builder.HasKey(c => c.Id);
         builder.Property(c => c.Id).HasConversion(
-            customerId => customerId.Value, 
+            customerId => customerId.Value,
             dbId => CustomerId.Of(dbId));
-        
+
         builder.Property(c => c.Name).HasMaxLength(25);
-        
+
         builder.Property(c => c.Email).HasMaxLength(100).IsRequired();
     }
 }

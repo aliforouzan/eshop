@@ -1,8 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Ordering.Domain.Enums;
-using Ordering.Domain.Models;
-using Ordering.Domain.ValueObjects.StronglyTypes;
 
 namespace Ordering.Infrastructure.Configuration;
 

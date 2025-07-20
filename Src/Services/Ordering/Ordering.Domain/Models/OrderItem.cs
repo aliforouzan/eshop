@@ -11,7 +11,7 @@ public class OrderItem : Entity<OrderItemId>
     
     private OrderItem(OrderId orderId, ProductId productId, int quantity, decimal price)
     {
-        Id = OrderItemId.Of(new Guid());
+        Id = OrderItemId.Of(Guid.NewGuid());
         OrderId = orderId;
         ProductId = productId;
         Quantity = quantity;

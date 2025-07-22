@@ -4,4 +4,4 @@ public record OrderItemDto(
     Guid OrderId,
     Guid ProductId,
     int Quantity,
-    int Price);
+    decimal Price);
